@@ -111,9 +111,10 @@ public class Unit : PooledObject
     private Unit FindTarget()
     {
         // find all colliders in range on Unit layer
-        _hits = Physics.OverlapSphere(CenterPosition, _visionRadius, _unitMask);
+        int count = Physics.OverlapSphereNonAlloc(CenterPosition, _visionRadius, _hits, _unitMask);
+        //_hits = Physics.OverlapSphere(CenterPosition, _visionRadius, _unitMask);
 
-        for (int i = 0; i < _hits.Length; i++)
+        for (int i = 0; i < count; i++)
         {
             Collider hit = _hits[i];
             // filter for a Unit that is alive, an enemy, and not an ignored type
